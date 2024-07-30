@@ -28,12 +28,12 @@ class Wine implements AlcoholicDrink {
 }
 
 class Cocktail implements AlcoholicDrink, MixedDrink {
-    alcohol: number;
     name: string;
+    alcohol: number;
     ingredents: string[];
 
     constructor(name: string,
-        alcohol, number,
+        alcohol: number,
         ingredents: string[]
     ) {
         this.name = name;
@@ -42,6 +42,26 @@ class Cocktail implements AlcoholicDrink, MixedDrink {
     }
 
     showInfo(): string {
-        return ""
+
+        const ingredentInfo = this.ingredents.reduce((ac, e) =>
+            ac + " " + e + ", ", ""
+        );
+
+        return `info: ${this.name} ${this.alcohol}` +
+            `ingredents: ${ingredentInfo}`;
     };
 }
+
+const margarita = new Cocktail("Margarita", 12.5, ["tequila", "limon", "sal", "soda"]);
+const rioja = new Wine("vino rioja", 14);
+const malbec = new Wine("vino malbec", 16);
+
+const ad: AlcoholicDrink[] = [
+    margarita, rioja, malbec
+];
+
+function showDrinks(drinks: AlcoholicDrink[]): void {
+    drinks.forEach(e => console.log(e.showInfo()));
+}
+
+showDrinks(ad);
